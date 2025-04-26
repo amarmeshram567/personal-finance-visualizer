@@ -14,7 +14,8 @@ export async function PUT(request: NextRequest, { params } : {params : {id: stri
         return NextResponse.json(transaction);
     }
     catch (error) {
-        return NextResponse.json({error: 'Failed to update transactions'});
+        console.log(error)
+        return NextResponse.json({error: 'Failed to update transactions'}, {status: 500});
     }
 }
 
@@ -28,7 +29,8 @@ export async function DELETE(request: NextRequest, {params}: {params: {id: strin
         return NextResponse.json({message: 'Transactions Deleted'});
     }
     catch (error) {
-        return NextResponse.json({error: 'Failed to delete transactions'});
+        console.log(error)
+        return NextResponse.json({error: 'Failed to delete transactions'}, {status: 500});
     }
 }
 
