@@ -43,8 +43,7 @@ export function Dashboard() {
     }, []);
 
     const currentMonth = startOfMonth(new Date());
-    const totalExpenses = transactions.filter(
-        (t) => t.type === 'expense' && 
+    const totalExpenses = transactions.filter((t) => t.type === 'expense' && 
         new Date(t.date) >= currentMonth &&
         new Date(t.date) <= endOfMonth(currentMonth)
     ).reduce((sum, t) => sum + t.amount, 0);

@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import { Transaction } from "@/models/transaction";
 
-export async function PUT(request: NextRequest, { params } : {params : {id: string}}) {
+export async function PUT(request: NextRequest, context: {params : {id: string} }) {
+    const {params} = context;
     try {
         await connectDB();
         const body = await request.json();
@@ -19,7 +20,8 @@ export async function PUT(request: NextRequest, { params } : {params : {id: stri
     }
 }
 
-export async function DELETE(request: NextRequest, {params}: {params: {id: string}}) {
+export async function DELETE(request: NextRequest, context: {params: {id: string}}) {
+    const {params} = context;
     try {
         await connectDB();
         const transaction = await Transaction.findByIdAndDelete(params.id);

@@ -1,4 +1,4 @@
-import mongoose, {Schema, model, models} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 import { z } from "zod";
 
@@ -13,7 +13,7 @@ export const TransactionSchemaZod = z.object({
 
 export type TransactionType = z.infer<typeof TransactionSchemaZod>;
 
-const TransactionSchema = new Schema<TransactionType>({
+const TransactionSchema = new Schema({
     amount: {type: Number, required: true},
     description: {type: String, required: true},
     type: {type: String, enum: ['expense', 'income'], required: true},
@@ -21,7 +21,12 @@ const TransactionSchema = new Schema<TransactionType>({
     category: {type: String, required: true},
 }, {timestamps: true});
 
-export const Transaction = mongoose.Transaction || mongoose.model<TransactionType>('Transaction', TransactionSchema);
+// export const Transaction = mongoose.Transaction || mongoose.model<TransactionType>('Transaction', TransactionSchema);
+
+// export const Transaction = models.Transaction || model<TransactionType>('Transaction', TransactionSchema);
+
+const transactionModel = mongoose.model.transaction || mongoose.model("transaction", TransactionSchema);
+export default transactionModel
 
 
 //mongoose.
