@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(transaction, {status: 201});
     }
     catch (error) {
-        console.error(error)
+        console.log(error)
         return NextResponse.json(
             {error: 'Error saving transactions'}
         );
@@ -27,6 +27,7 @@ export async function GET() {
         return NextResponse.json(transactions, );
     }
     catch (error) {
+        console.log(error)
         return NextResponse.json({error: 'Failed to fetch transactions'})
     }
 }

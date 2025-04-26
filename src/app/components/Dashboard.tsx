@@ -1,7 +1,8 @@
 'use client';
 
+import { Transaction } from "@/models/transaction";
+
 import { useState, useEffect } from "react";
-import { TransactionType } from "@/models/transaction";
 import {
     BarChart,
     Bar,
@@ -23,8 +24,8 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D"
 
 
 export function Dashboard() {
-    const [transactions, setTransactions] = useState<TransactionType[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [error, setError] = useState<string>("")
 
     useEffect(() => {
         const fetchTransactions = async () => {
@@ -35,18 +36,23 @@ export function Dashboard() {
                 setTransactions(data);
             }
             catch (err) {
-                setError('Error fetching transactions');
+
                 console.log(err)
             }
         };
         fetchTransactions();
     }, []);
 
-    const currentMonth = startOfMonth(new Date());
-    const totalExpenses = transactions.filter((t) => t.type === 'expense' && 
-        new Date(t.date) >= currentMonth &&
-        new Date(t.date) <= endOfMonth(currentMonth)
-    ).reduce((sum, t) => sum + t.amount, 0);
+    
+    const currentMonth =startOfMonth(new Date());
+
+    const totalExpenses = transactions.filter((transaction) => transaction.type === "expense" && 
+        new Date(transaction.date) >= currentMonth && new Date(transaction.date) <= endOfMonth(currentMonth)
+    );
+
+    const totalExpensesAmount = totalExpenses.reduce(
+        (sum, transaction) => sum + transaction.amount, 0
+    );
 
     const categoryBreakdown = transactions
         .filter((t) => t.type === 'expense')
@@ -56,6 +62,7 @@ export function Dashboard() {
         }, {} as Record<string, number>);
 
     const totalCategoryAmount  = Object.values(categoryBreakdown).reduce((sum, val) => sum + val, 0);
+   
     const categoryData = Object.entries(categoryBreakdown).map(([name, value]) => ({
         name,
         value: totalCategoryAmount ? (value / totalCategoryAmount) * 100 : 0,
@@ -68,13 +75,14 @@ export function Dashboard() {
         return acc;
     }, {} as Record<string, number>);
 
-    const barData = Object.entries(monthlyExpenses).map(([name, value]) => ({
+    const barData = Object.entries(monthlyExpenses).map(([name, amount]) => ({
         name,
-        amount: value,
+        amount,
     }));
 
-    const recentTransactions = transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 5);
-
+    const recentTransactions = [...transactions]
+    .sort((a, b)=> new Date (b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 5)
 
     return (
         <div className="space-y-6">
@@ -89,7 +97,7 @@ export function Dashboard() {
                         <CardTitle>Total Expenses (This Month)</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-2xl font-bold">${totalExpenses.toFixed(2)}</p>
+                        <p className="text-2xl font-bold">${totalExptotalExpensesAmount.toFixed(2)}</p>
                     </CardContent>
                 </Card>
                 <Card>
