@@ -44,7 +44,7 @@ export function TransactionList() {
             setTransactions(transactions.filter((t) => t._id !== id));
         }
         catch (err) {
-            setError('Error deleting transaction')
+            console.log(err)
         }
     };
 

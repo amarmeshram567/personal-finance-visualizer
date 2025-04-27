@@ -46,8 +46,7 @@ export function Dashboard() {
     
     const currentMonth =startOfMonth(new Date());
 
-    const totalExpenses = transactions.filter((transaction) => transaction.type === "expense" && 
-        new Date(transaction.date) >= currentMonth && new Date(transaction.date) <= endOfMonth(currentMonth)
+    const totalExpenses = transactions.filter((transaction) => transaction.type === "expense" && new Date(transaction.date) >= currentMonth && new Date(transaction.date) <= endOfMonth(currentMonth)
     );
 
     const totalExpensesAmount = totalExpenses.reduce(
@@ -97,7 +96,7 @@ export function Dashboard() {
                         <CardTitle>Total Expenses (This Month)</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-2xl font-bold">${totalExptotalExpensesAmount.toFixed(2)}</p>
+                        <p className="text-2xl font-bold">${totalExpensesAmount.toFixed(2)}</p>
                     </CardContent>
                 </Card>
                 <Card>

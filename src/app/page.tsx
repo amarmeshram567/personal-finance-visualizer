@@ -25,7 +25,7 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto p-4">
+    <main className="container mx-auto pt-60 p-4">
       <h1 className="text-2xl text-black font-bold mb-6 flex justify-center underline">Personal Finance Visualizer</h1>
       {error && (
         <Alert variant="destructive" className="mb-4">
@@ -47,7 +47,7 @@ export default function Home() {
           <TransactionList/>
         </section>
       </div>
-
+      <div className="pb-60"></div>
     </main>
   )
 }

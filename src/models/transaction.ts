@@ -10,5 +10,3 @@ const TransactionSchema = new Schema({
 
 
 export const Transaction = mongoose.model.transaction || mongoose.model("transaction", TransactionSchema)
-
-// export default Transaction
